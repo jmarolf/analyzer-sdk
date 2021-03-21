@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(MSBuildThisFileDirectory)Analyzer.SDK.Common.props" />
+
+  <PropertyGroup>
+    <!-- TODO throw error if not a valid language version -->
+    <TargetLanguageVersion Condition="'$(TargetLanguageVersion)' == ''">9.0</TargetLanguageVersion>
+    <!-- TODO These need to be calulated -->
+    <TargetLanguageFolder>cs</TargetLanguageFolder>
+    <LanguagePackageVersion>3.9.0</LanguagePackageVersion>
+  </PropertyGroup>
+
+</Project>

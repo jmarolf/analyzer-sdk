@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(MSBuildThisFileDirectory)Analyzer.SDK.Common.targets" />
+
+  <ItemGroup Label="Analyzer References">
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="$(LanguagePackageVersion)" IsImplicitlyDefined="true" />
+  </ItemGroup>
+
+</Project>

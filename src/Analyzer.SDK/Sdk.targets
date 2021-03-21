@@ -1,0 +1,4 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)Analyzer.SDK.CSharp.targets" Condition="'$(TargetLanguage)' == 'CSharp'" />
+  <Import Project="$(MSBuildThisFileDirectory)Analyzer.SDK.VisualBasic.targets" Condition="'$(TargetLanguage)' == 'VisualBasic'" />
+</Project>

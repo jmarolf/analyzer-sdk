@@ -32,6 +32,8 @@ jobs:
         run: dotnet restore --locked-mode --packages ${{ github.workspace }}/.nuget/packages
       - name: Build
         run: dotnet msbuild -noLogo -m -p:Configuration=${{ matrix.configuration }} -bl:artifacts/log/build.binlog
+      - name: Pack
+        run: dotnet pack --no-build --no-restore --nologo --configuration ${{ matrix.configuration }} --output artifacts/packages
       - name: Upload Results
         uses: actions/upload-artifact@v2.2.2
         with:
@@ -39,4 +41,5 @@ jobs:
           path: |
             ./artifacts/bin/**/*
             ./artifacts/log/**/*
+            ./artifacts/packages/**/*
           if-no-files-found: error

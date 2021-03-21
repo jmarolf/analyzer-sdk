@@ -1,0 +1,62 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup Label="Analyzer References">
+    <!-- TODO: Have a central way to manage this version -->
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <IsImplicitlyDefined>true</IsImplicitlyDefined>
+    </PackageReference>
+  </ItemGroup>
+
+  <Target Name="_AddAnalyzerDependenciesToOutput">
+    <ResolvePackageAssets 
+      ProjectAssetsFile="$(ProjectAssetsFile)"
+      ProjectAssetsCacheFile="$(ProjectAssetsCacheFile)"
+      ProjectPath="$(MSBuildProjectFullPath)"
+      ProjectLanguage="$(Language)"
+      EmitAssetsLogMessages="$(EmitAssetsLogMessages)"
+      TargetFramework="$(TargetFramework)"
+      RuntimeIdentifier="$(RuntimeIdentifier)"
+      PlatformLibraryName="$(MicrosoftNETPlatformLibrary)"
+      RuntimeFrameworks="@(RuntimeFramework)"
+      IsSelfContained="$(SelfContained)"
+      MarkPackageReferencesAsExternallyResolved="$(MarkPackageReferencesAsExternallyResolved)"
+      DisablePackageAssetsCache="$(DisablePackageAssetsCache)"
+      DisableFrameworkAssemblies="$(DisableLockFileFrameworks)"
+      CopyLocalRuntimeTargetAssets="$(CopyLocalRuntimeTargetAssets)"
+      DisableTransitiveProjectReferences="$(DisableTransitiveProjectReferences)"
+      DisableTransitiveFrameworkReferences="$(DisableTransitiveFrameworkReferences)"
+      DotNetAppHostExecutableNameWithoutExtension="$(_DotNetAppHostExecutableNameWithoutExtension)"
+      ShimRuntimeIdentifiers="@(_PackAsToolShimRuntimeIdentifiers)"
+      EnsureRuntimePackageDependencies="$(EnsureRuntimePackageDependencies)"
+      VerifyMatchingImplicitPackageVersion="$(VerifyMatchingImplicitPackageVersion)"
+      ExpectedPlatformPackages="@(ExpectedPlatformPackages)"
+      SatelliteResourceLanguages="$(SatelliteResourceLanguages)"
+      DesignTimeBuild="$(DesignTimeBuild)"
+      ContinueOnError="$(ContinueOnError)"
+      PackageReferences="@(PackageReference)">
+
+      <!-- NOTE: items names here are inconsistent because they match prior implementation
+          (that was spread across different tasks/targets) for backwards compatibility.  -->
+      <Output TaskParameter="Analyzers" ItemName="ResolvedAnalyzers" />
+      <Output TaskParameter="ApphostsForShimRuntimeIdentifiers" ItemName="_ApphostsForShimRuntimeIdentifiersResolvePackageAssets" />
+      <Output TaskParameter="ContentFilesToPreprocess" ItemName="_ContentFilesToPreprocess" />
+      <Output TaskParameter="FrameworkAssemblies" ItemName="ResolvedFrameworkAssemblies" />
+      <Output TaskParameter="FrameworkReferences" ItemName="TransitiveFrameworkReference" />
+      <Output TaskParameter="NativeLibraries" ItemName="NativeCopyLocalItems" />
+      <Output TaskParameter="ResourceAssemblies" ItemName="ResourceCopyLocalItems" />
+      <Output TaskParameter="RuntimeAssemblies" ItemName="RuntimeCopyLocalItems" />
+      <Output TaskParameter="RuntimeTargets" ItemName="RuntimeTargetsCopyLocalItems" />
+      <Output TaskParameter="CompileTimeAssemblies" ItemName="ResolvedCompileFileDefinitions" />
+      <Output TaskParameter="TransitiveProjectReferences" ItemName="_TransitiveProjectReferences" />
+      <Output TaskParameter="PackageFolders" ItemName="AssetsFilePackageFolder" />
+      <Output TaskParameter="PackageDependencies" ItemName="PackageDependencies" />
+    </ResolvePackageAssets>
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="$(OutputPath)\$(AssemblyName).dll" PackagePath="analyzers/dotnet/$(TargetLanguageFolder)" />
+      <!-- TODO: filter out Microsoft.CodeAnalysis Packages -->
+      <TfmSpecificPackageFile Include="@(RuntimeCopyLocalItems)" PackagePath="analyzers/dotnet/$(TargetLanguageFolder)" />
+    </ItemGroup>
+  </Target>
+</Project>

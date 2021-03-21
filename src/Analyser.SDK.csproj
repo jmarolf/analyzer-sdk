@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.Build.NoTargets/2.0.1">
+ 
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <EnableDefaultNoneItems>false</EnableDefaultNoneItems>
+    <NoWarn>NU5128</NoWarn>
+    
+    <Authors>Jonathon Marolf</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>roslyn analyzer sourcegenerator generator</PackageTags>
+    
+    <VersionPrefix>0.0.1</VersionPrefix>
+    <VersionSuffix>alpha</VersionSuffix>
+    
+  </PropertyGroup>
+ 
+  <PropertyGroup>
+    <Description>Provides targets to help package and build analyzers and genrators</Description>
+    <PackageTags>MSBuild MSBuildSdk $(PackageTags)</PackageTags>
+    <PackageType>MSBuildSdk</PackageType>
+  </PropertyGroup>
+ 
+  <ItemGroup>
+    <None Include="Analyzer.SDK\**" Pack="true" PackagePath="Sdk\" />
+  </ItemGroup>
+  
+</Project>
