@@ -12,16 +12,26 @@
 
   <!-- Nuget settings -->
   <PropertyGroup>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally> <!-- Use Directory.Packages.props for nuget package versions -->
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile> <!-- Enable deterministic restore -->
-    <RestoreUseStaticGraphEvaluation>true</RestoreUseStaticGraphEvaluation> <!-- Enable faster restore times -->
+    <!-- Use Directory.Packages.props for nuget package versions -->
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <!-- Enable deterministic restore -->
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <!-- Enable faster restore times -->
+    <RestoreUseStaticGraphEvaluation>true</RestoreUseStaticGraphEvaluation>
   </PropertyGroup>
   
   <!-- Compiler settings -->
   <PropertyGroup>
-    <AnalysisLevel>6</AnalysisLevel> <!-- Opt into more advanced analysis -->
-    <LangVersion>9</LangVersion> <!-- Ensure all projects use the latest language version -->
+    <AnalysisLevel>latest</AnalysisLevel> <!-- Opt into more advanced analysis -->
+    <LangVersion>latest</LangVersion> <!-- Ensure all projects use the latest language version -->
     <Nullable>enable</Nullable> <!-- Turn on nullable-reference-type analysis -->
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Use reproduceable builds feature -->
+    <PackageReference Include="DotNet.ReproducibleBuilds" PrivateAssets="All" />
+    <!-- Use package versioning -->
+    <PackageReference Include="Nerdbank.GitVersioning" PrivateAssets="All" />
+  </ItemGroup>
 
 </Project>

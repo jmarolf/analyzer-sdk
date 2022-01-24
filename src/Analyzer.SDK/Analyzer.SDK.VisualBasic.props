@@ -7,7 +7,7 @@
     <TargetLanguageVersion Condition="'$(TargetLanguageVersion)' == ''">15.3</TargetLanguageVersion>
     <!-- TODO These need to be calulated -->
     <TargetLanguageFolder>vb</TargetLanguageFolder>
-    <LanguagePackageVersion>3.9.0</LanguagePackageVersion>
+    <LanguagePackageVersion>4.0.0</LanguagePackageVersion>
   </PropertyGroup>
 
 </Project>

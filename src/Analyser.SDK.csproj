@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.Build.NoTargets/2.0.1">
  
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <EnableDefaultNoneItems>false</EnableDefaultNoneItems>
     <NoWarn>NU5128</NoWarn>
     
@@ -9,8 +11,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>roslyn analyzer sourcegenerator generator</PackageTags>
     
-    <VersionPrefix>0.0.1</VersionPrefix>
-    <VersionSuffix>alpha</VersionSuffix>
+    <PackageVersion>$(NuGetPackageVersion)</PackageVersion>
     
   </PropertyGroup>
  

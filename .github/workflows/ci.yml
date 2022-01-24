@@ -1,6 +1,9 @@
 name: Continuous Integration
 on:
   push:
+    branches:
+      - "main"
+      - "release/*"
     paths-ignore:
     - 'docs/**'
   pull_request:
@@ -16,13 +19,13 @@ jobs:
         configuration: [debug, release]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.4.0
         with:
           fetch-depth: 0
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1.7.2
+        uses: actions/setup-dotnet@v1.9.0
       - name: Try get cached dependencies
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.7
         with:
           path: ${{ github.workspace }}/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
@@ -31,11 +34,9 @@ jobs:
       - name: Validate dependencies
         run: dotnet restore --locked-mode --packages ${{ github.workspace }}/.nuget/packages
       - name: Build
-        run: dotnet msbuild -noLogo -m -p:Configuration=${{ matrix.configuration }} -bl:artifacts/log/build.binlog
-      - name: Pack
-        run: dotnet pack --no-build --no-restore --nologo --configuration ${{ matrix.configuration }} --output artifacts/packages
+        run: dotnet msbuild -p:Configuration=${{ matrix.configuration }} -graph -isolate -bl:artifacts/log/build.binlog
       - name: Upload Results
-        uses: actions/upload-artifact@v2.2.2
+        uses: actions/upload-artifact@v2.3.1
         with:
           name: ${{ matrix.os }}_${{ matrix.configuration }}
           path: |
